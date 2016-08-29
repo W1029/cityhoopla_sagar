@@ -1,0 +1,47 @@
+For go to prod parallel setup of Digispace:
+-------->ssh -i digispace.pem ec2-user@52.40.205.128
+
+For upload a single html file:
+-------->scp -i digispace.pem /home/tungsten30/SAGAR/DigiSpaceProject/DigiSpace240516/templates/Admin/user_login.html   ec2-user@52.40.205.128:~/DigiSpace/templates/Admin
+
+
+For upload a single py file:
+-------->scp -i digispace.pem /home/tungsten30/SAGAR/DigiSpaceProject/DigiSpace240516/Admin/captcha_mod.py ec2-user@52.40.205.128:~/DigiSpace/Admin
+
+
+
+scp -i digispace.pem /home/tungsten30/Digispace_18_6_2016/DigiSpace/templates/Admin/user_login.html   ec2-user@52.40.205.128:~/DigiSpace/templates/Admin
+
+/home/tungsten30/Digispace_18_6_2016/DigiSpace/Admin/advert.py
+
+scp -i digispace.pem /home/tungsten30/Digispace_18_6_2016/DigiSpace/Admin/supplier.py ec2-user@52.40.205.128:~/DigiSpace/Admin
+
+
+
+scp -i digispace.pem /home/tungsten30/SAGAR/DigiSpaceProject/DigiSpace240516/static/assets/pages/img/reset.png  ec2-user@52.40.205.128:~/DigiSpace/static/assets/pages/img/
+
+
+
+scp -i digispace.pem /home/tungsten30/SAGAR/DigiSpace/templates/Admin/edit-subscriber-detail.html ec2-user@52.40.205.128:~/DigiSpace/templates/Admin/
+
+
+scp -i digispace.pem /home/tungsten30/SAGAR/DigiSpace/Admin/supplier.py  ec2-user@52.40.205.128:~/DigiSpace/Admin
+
+
+scp -i digispace.pem /home/tungsten30/SAGAR/DigiSpace/templates/Admin/edit-subscriber.html ec2-user@52.40.205.128:~/DigiSpace/templates/Admin
+
+
+
+
+
+
+
+
+scp -i digispace.pem /home/tungsten30/DigiSpace260816/DigiSpace/Admin/supplier.py  ec2-user@52.40.205.128:~/DigiSpace/Admin
+
+
+scp -i digispace.pem /home/tungsten30/DigiSpace260816/DigiSpace/templates/Admin/edit-subscriber-detail.html  ec2-user@52.40.205.128:~/DigiSpace/templates/Admin
+
+
+
+

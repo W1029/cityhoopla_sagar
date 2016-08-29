@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
+Version: 4.5.3
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8"/>
+    <title>City Hoopla | Add Advert </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet" type="text/css" /> -->
+    <link href="{% static 'assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="{% static 'assets/layouts/layout2/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout2/css/themes/blue.min.css' %}" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="{% static 'assets/layouts/layout2/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
+
+    <link href="{% static 'vendor/bootstrap-fileinput/jasny-bootstrap.min.css' %}" rel="stylesheet" media="screen">
+
+
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.2.504/styles/kendo.common-material.min.css"/>
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.2.504/styles/kendo.material.min.css"/>
+
+    <link href="{% static 'assets/pages/css/dropzone.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/custom/css/map.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/bootstrap-tagsinput.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME LAYOUT STYLES -->
+
+    <!-- END HEAD -->
+    <style type="text/css">
+    
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    white-space: nowrap;
+    display: none !important;
+}
+
+.has-success .control-label{
+	color : #333;
+}
+
+.has-success .form-control {
+	border: 1px solid #C2CAD8;
+}
+
+		div.dataTables_wrapper div.dataTables_info {
+    padding-top: 8px;
+    white-space: nowrap;
+    display: none;
+}
+div.dataTables_wrapper div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    display: none;
+}
+
+div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+    display: none;
+}
+
+.border_s{
+
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+.fa-lg {
+    font-size: 2.333333em;
+    line-height: .75em;
+    vertical-align: -15%;
+}
+
+div.checker span {
+    display: -moz-inline-box;
+    display: inline-block;
+    zoom: 1;
+    text-align: center;
+    background-position: 0 -260px;
+
+}
+
+#processing{
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    margin: 0px auto;
+    z-index: 9999;
+    background-color: #FFF;
+    background-image: none;
+    background-attachment: scroll;
+    background-position: 0% 0%;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-repeat: repeat;
+    background-size: inherit;
+    opacity: 0.5;
+}
+
+#loading{
+    width: 36%;
+    height: 22px;
+    position: absolute;
+    top: 26%;
+    left: 32%;
+    margin: -28px 0px 0px -25px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+}
+
+
+
+.page-header.navbar .page-logo .logo-default {
+    margin: 2px 0 0;
+    width: 105px;
+    background: rgba(255, 255, 255, 0.48);
+}
+
+.page-header.navbar .page-logo {
+  /* fallback */
+  background-color: #0d67e6;
+  background-image: url(images/linear_bg_1.png);
+  background-repeat: repeat-y;
+
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, left top, right top, from(#0d67e6), to(#11ca9a));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(left, #0d67e6, #11ca9a);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(left, #0d67e6, #11ca9a);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(left, #0d67e6, #11ca9a);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(left, #0d67e6, #11ca9a);
+}
+
+@media (max-width: 767px){
+.page-header.navbar {
+     background-color: #0d67e6;
+  background-image: url(images/linear_bg_1.png);
+  background-repeat: repeat-y;
+
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, left top, right top, from(#0d67e6), to(#11ca9a));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(left, #0d67e6, #11ca9a);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(left, #0d67e6, #11ca9a);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(left, #0d67e6, #11ca9a);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(left, #0d67e6, #11ca9a);
+}
+}
+
+.form-height{
+height: 65px;
+}
+
+.user-image img {
+    max-width: 100%;
+}
+
+.fileinput .thumbnail>img {
+    height: 178px !important;
+}
+
+.fileinput-preview.thumbnail {
+    max-width: 278px;
+}
+
+.btn-azure:hover {
+    background-color: #0095C8;
+    border-color: #0095C8;
+    color: #ffffff;
+}
+
+.btn-file {
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+}
+
+.user-image .user-image-buttons {
+    position: static;
+
+    <!--top: 20%;-->
+    <!--left: 37%;-->
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.btn-red:hover {
+    background-color: #da4f4a !important;
+    border-color: #da4f4a;
+    color: #ffffff;
+    display: none;
+}
+
+.btn-red{
+    display: none;
+}
+
+.btn-sm, .btn-group-sm>.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.btn {
+    transition: all 0.3s ease 0s !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    position: relative;
+}
+
+.fileinput .btn {
+    vertical-align: middle;
+}
+
+.bootstrap-tagsinput {
+    line-height: 35px;
+    width: 980px;
+}
+
+.u11 {
+    font-family: 'Roboto Bold', 'Roboto';
+    font-weight: 700;
+    font-style: normal;
+    color: #2F353B;
+}
+
+.form-wizard .steps > li.active > a.step .desc {
+    color: #2F353B;
+    font-weight: 700;
+    font-family: 'Roboto Bold', 'Roboto';
+}
+
+.portlet.light {
+    <!--padding: 0px 0px 4px;-->
+    <!--background-color: #eef1f5;-->
+}
+
+.form-wizard .steps, .form-wizard .steps > li > a.step {
+    <!--background-color: #eef1f5;-->
+    background-image: none;
+    border: 0;
+    box-shadow: none;
+    filter: none;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #6B6B6B;
+    border-bottom: 0;
+}
+
+#u403 {
+    font-family: 'Roboto Light', 'Roboto';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 16px;
+    color: #3399CC;
+}
+
+#u2 {
+    font-family: 'Roboto Light', 'Roboto';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 16px;
+    color: #2F353B;
+}
+
+#u405 {
+    font-family: 'FontAwesome Regular', 'FontAwesome';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #949494;
+}
+
+<!--.form-wizard .steps > li.active > a.step .number {-->
+    <!--background-color: #668cff;-->
+    <!--color: #fff;-->
+    <!--border: 1px solid #949494;-->
+<!--}-->
+
+<!--.form-wizard .steps > li > a.step > .number {-->
+    <!--border: 1px solid #949494;-->
+    <!--background-color: #CFD1D4;-->
+    <!--text-align: center !important;-->
+    <!--padding: 11px 15px 13px;-->
+    <!--margin-right: 10px;-->
+    <!--height: 45px;-->
+    <!--width: 45px;-->
+    <!-- -webkit-border-radius: 50% !important;-->
+    <!-- -moz-border-radius: 50% !important;-->
+    <!--border-radius: 50% !important;-->
+    <!--color: black;-->
+<!--}-->
+
+#tab2 {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.map-wrapper {
+    float: left;
+    margin: 0px 0px 0 0px;
+}
+
+#map {
+    border: 1px solid #DDD;
+    width: 292px;
+    overflow: hidden;
+    height: 223px;
+    margin: 10px 0 10px 0;
+    -webkit-box-shadow: #AAA 0px 0px 15px;
+}
+
+#my-awesome-dropzone-3{
+    border: 1px dashed black !important;
+    min-height: 224px !important;
+}
+
+#my-active-dropzone{
+    border: 1px dashed black !important;
+    min-height: 224px !important;
+}
+
+.dropzone .dz-preview .dz-details img, .dropzone-previews .dz-preview .dz-details img {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.dropzone .dz-preview, .dropzone-previews .dz-preview {
+    background: rgba(255,255,255,0.8);
+    position: relative;
+    display: inline-block;
+    margin: 4px;
+    vertical-align: top;
+    border: 1px solid #acacac;
+    padding: 6px 6px 6px 6px;
+}
+
+
+
+#upload_progress {
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+}
+
+.table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
+    border-top: 0px none;
+    width: 1% !important;
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_desc_disabled {
+    cursor: pointer;
+    display: none !important;
+}
+
+    </style>
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+<div id="processing" style="display:none;">
+    <div id="loading">
+        <img src="{% static 'assets/loading-bars.gif' %}" style="height : 100px;">
+
+    </div>
+</div>
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner ">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="{% static 'assets/layouts/layout2/img/City_Hoopla_Logo.png' %}" alt="logo"
+                     class="logo-default"/> </a>
+            <div class="menu-toggler sidebar-toggler">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
+           data-target=".navbar-collapse"> </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN PAGE TOP -->
+        <div class="page-top">
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <!-- <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="icon-bell"></i>
+                            <span class="badge badge-default"> 7 </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="external">
+                                <h3>
+                                    <span class="bold">12 pending</span> notifications</h3>
+                                <a href="page_user_profile_1.html">view all</a>
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">just now</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-success">
+                                                    <i class="fa fa-plus"></i>
+                                                </span> New user registered. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">3 mins</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> Server #12 overloaded. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">10 mins</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-warning">
+                                                    <i class="fa fa-bell-o"></i>
+                                                </span> Server #2 not responding. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">14 hrs</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-info">
+                                                    <i class="fa fa-bullhorn"></i>
+                                                </span> Application error. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">2 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> Database overloaded 68%. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">3 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> A user IP blocked. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">4 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-warning">
+                                                    <i class="fa fa-bell-o"></i>
+                                                </span> Storage Server #4 not responding dfdfdfd. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">5 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-info">
+                                                    <i class="fa fa-bullhorn"></i>
+                                                </span> System Error. </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">9 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> Storage server failed. </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <!-- END NOTIFICATION DROPDOWN -->
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
+                            <!-- <img alt="" class="img-circle" src="{% static 'assets/layouts/layout2/img/avatar3_small.jpg' %}" /> -->
+                            <span class="username username-hide-on-mobile"> {{ username }} </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <!-- <li>
+                                <a href="page_user_profile_1.html">
+                                    <i class="icon-user"></i> My Profile </a>
+                            </li> -->
+                            <li>
+                                <a href="/log-out/">
+                                    <i class="icon-key"></i> Log Out </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END PAGE TOP -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<!-- BEGIN HEADER & CONTENT DIVIDER -->
+<div class="clearfix"></div>
+<!-- END HEADER & CONTENT DIVIDER -->
+<!-- BEGIN CONTAINER -->
+<!--<div class="page-container" style="background-color: #666;">-->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- END SIDEBAR -->
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+        <!--<div class="page-sidebar navbar-collapse collapse" style="background-color:#333333">-->
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu "
+                data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <li class="nav-item ">
+                    <a href="index.html" class="nav-link nav-toggle" style="background-color: dimgrey;">
+                                <span class="title" style="    margin-left: -46px;">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-item  ">
+                    <a href="advert-management.html" class="nav-link nav-toggle"
+                       style="background-color: #666;">
+                                <span class="title" style="    margin-left: -74px;"> <i class="fa fa-users"
+                                                                                        aria-hidden="true"></i> Advert</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="advert-management.html" class="nav-link nav-toggle"
+                       style="background-color: #666;">
+                                <span class="title" style="    margin-left: -61px;"> <i class="fa fa-user"
+                                                                                        aria-hidden="true"></i> Bookings </span>
+                    </a>
+                </li>
+
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+        <!-- END SIDEBAR -->
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        <div class="page-content">
+
+            <!-- END PAGE HEADER-->
+                    <div class="portlet light  ">
+                        <div class="portlet-body ">
+                        	<div class="row">
+                        		<div class="col-lg-12">
+                            <!-- BEGIN FORM-->
+                            		<div class="row">
+                            			 <div class="col-md-4">
+	                                    <a href="#" id="u403">Configure</a>
+	                                    <i class="fa fa-angle-right"></i>
+	                                    <span id="u2">Rate Card</span>
+                                    </div>
+                                    
+                                     <div class="form-actions text-right">
+                                          <div class="col-md-offset-3 col-md-5">
+                                         		<a type="button" href="/add-rate-card/"  class="btn green btn-outline default">Add Rate Card</a>
+                                          </div>
+             								</div> 
+											</div>
+
+                							<div class="row" style="margin-top: 3% ! important;">
+                								<div class="col-md-3">
+
+	                                   <!--       <input type="text" class="form-control " id="txtSearch"
+	                                                placeholder="Search City" name="s"/> -->
+				                                       								
+                								
+                								<table class="table table-striped table-bordered  " id="rate-card-list">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th> City </th>
+                                                <th  style="text-align: center;"> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr >
+                                              
+                                                <td> Mumbai</td>
+                                                <td  style="text-align: center;">
+                                             		 
+                                                    <a class="fa fa-pencil " href="#"></a>
+                                                    <a class="fa  fa-trash-o " data-toggle="modal" data-target=""></a>
+                                                </td>
+                                             </tr>
+                                             <tr>   
+                                                <td> Pune</td>
+                                                <td  style="text-align: center;">
+                                             		 
+                                                    <a class="fa fa-pencil " href="#"></a>
+                                                    <a class="fa  fa-trash-o " data-toggle="modal" data-target=""></a>
+                                                </td>
+                                            </tr>
+
+                                    	  		</tbody>
+                                    	 </table>
+                								
+                								</div>
+                								
+                								<div class="col-md-9">
+														<div class="row">
+																<div class="col-md-12">
+																	<label class="u11" style="font-size:14px">Mumbai Rate Card (in INR)</label>
+																	<table class="table  table-bordered" style="margin-top:1% !important" id="rate_card">
+					                                        <thead>
+					                                            <tr>
+					                                                <th> Premium Service </th>
+					                                                <th style="text-align: center ! important;"> 3 Days </th>
+					                                                <th style="text-align: center ! important;"> 7 Days </th>
+					                                                <th style="text-align: center ! important;"> 30 Days </th>
+					                                                <th style="text-align: center ! important;"> 90 Days </th>
+					                                                <th style="text-align: center ! important;"> 180 Days </th>
+					                                            </tr>
+					                                        </thead>
+					                                        <tbody>
+					                                            <tr>
+					                                                <td> Top Advert </td>
+					                                                <td> <input type="text" id="3_days_t" disabled name="3_days_t" value="300" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input> 
+					                                                <label class="error" id="3_days_t_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td> <input type="text" id="7_days_t" disabled name="7_days_t" value="500" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input>
+																					<label class="error" id="7_days_t_error_msg" style="color:red; display:none;"></label>											                                                
+					                                                 </td>
+					                                                <td > <input type="text" id="30_days_t" disabled name="30_days_t" value="700" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input> 
+					                                                <label class="error" id="30_days_t_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                    <input type="text" id="90_days_t" disabled onkeypress="return validateFloatKeyPresss(this,event);" value="--" disabled class="form-control "></input>
+					                                                    <label class="error" id="90_days_t_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                   <input type="text" id="180_days_t" disabled onkeypress="return validateFloatKeyPresss(this,event);" value="--" disabled class="form-control "></input>
+					                                                   <label class="error" id="180_days_t_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                            </tr>
+					                                            <tr>
+					                                                <td>  Advert Slider </td>
+					                                                <td> <input type="text" id="3_days_a" disabled name="3_days_a" value="300" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input> 
+					                                                <label class="error" id="3_days_a_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td> <input type="text" id="7_days_a" disabled name="7_days_a" value="500" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input> 
+					                                                <label class="error" id="7_days_a_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td > <input type="text" id="30_days_a" disabled name="30_days_a" value="700" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input> 
+					                                                <label class="error" id="30_days_a_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                    <input type="text" id="90_days_a" disabled name="90_days_a" value="900" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input>
+					                                                    <label class="error" id="90_days_a_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                   <input type="text" id="180_days_a" disabled name="180_days_a" value="1100" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control adv"></input>
+					                                                   <label class="error" id="180_days_a_error_msg" style="color:red; display:none;"></label>
+					                                                </td>
+					                                            </tr>
+					                                        </tbody>
+											                   </table>
+																</div>
+														</div>                								
+                								
+                									<label class="u11" style="font-size:14px">
+															Categorywise Rates
+														</label>	
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse"  href="#collapse_1"> Healthcare </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse_1" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <table class="table  table-bordered" style="margin-top:1% !important" id="rate_card">
+					                                        <thead>
+					                                            <tr>
+					                                                <th> Service Level </th>
+					                                                <th  style="text-align: center ! important;"> 3 Days </th>
+					                                                <th style="text-align: center ! important;" > 7 Days </th>
+					                                                <th style="text-align: center ! important;"> 30 Days </th>
+					                                                <th style="text-align: center ! important;"> 90 Days </th>
+					                                                <th style="text-align: center ! important;"> 180 Days </th>
+					                                            </tr>
+					                                        </thead>
+					                                        <tbody>
+					                                            <tr>
+					                                                <td> Subscription </td>
+					                                                <td > <input id="3_days_b" name="3_days_b" onkeypress="return validateFloatKeyPresss(this,event);" type="text" class="form-control cat"></input>
+					                                                <label class="error"  style="color:red; display:none;"></label>
+					                                                 </td>
+					                                                <td> <input id="7_days_b" name="7_days_b" onkeypress="return validateFloatKeyPresss(this,event);" type="text" class="form-control cat"></input>
+																						<label class="error"  style="color:red; display:none;"></label>											                                                
+					                                                 </td>
+					                                                <td > <input id="30_days_b" name="30_days_b" onkeypress="return validateFloatKeyPresss(this,event);" type="text" class="form-control cat"> </input>
+					                                                <label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                    <input id="90_days_b" name="90_days_b" onkeypress="return validateFloatKeyPresss(this,event);" type="text" class="form-control cat"></input>
+					                                                   <label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                   <input id="180_days_b" name="180_days_b" onkeypress="return validateFloatKeyPresss(this,event);" type="text" class="form-control cat"></input>
+					                                               			<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                            </tr>
+					                                            <tr>
+					                                                <td ><input type="text" readonly value="Listing No 1" name="prm_ser_name" class="form-control">   </input>
+					                                                
+					                                                </td>
+					                                                <td> <input type="text" id="3_days_p" name="3_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input> 
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td> <input type="text" id="7_days_p" name="7_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td > <input type="text" id="30_days_p" name="30_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input> 
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                    <input type="text" id="90_days_p" name="90_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                   <input type="text" id="180_days_p" name="180_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                	<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                            </tr>
+					                                            <tr>
+					                                                <td><input type="text" readonly value="Listing No 2" name="prm_ser_name" class="form-control">   </input>  </td>
+					                                                <td> <input type="text" id="3_days_p1" name="3_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input> 
+					                                                	<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td> <input type="text" id="7_days_p1" name="7_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input> 
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td > <input type="text" id="30_days_p1" name="30_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                 </td>
+					                                                <td>
+					                                                    <input type="text" id="90_days_p1" name="90_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                               			<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                   <input type="text" id="180_days_p1" name="180_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                	<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                            </tr>
+					                                             <tr>
+					                                                <td>  <input type="text" readonly value="Listing No 3" name="prm_ser_name" class="form-control">   </input> </td>
+					                                                <td> <input type="text" id="3_days_p2" name="3_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input> 
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td> <input type="text" id="7_days_p2" name="7_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                 </td>
+					                                                <td > <input type="text" id="30_days_p2" name="30_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                		<label class="error"  style="color:red; display:none;"></label>
+					                                                 </td>
+					                                                <td>
+					                                                    <input type="text" id="90_days_p2" name="90_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                	<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                                <td>
+					                                                   <input type="text" id="180_days_p2" name="180_days_p" onkeypress="return validateFloatKeyPresss(this,event);" class="form-control cat"></input>
+					                                                	<label class="error"  style="color:red; display:none;"></label>
+					                                                </td>
+					                                            </tr>
+					                                        </tbody>
+											                   </table>
+                                                </div>
+                                            </div>
+                   							</div>	
+                							</div>	
+	                                                      		
+	                                                      		
+                                 	</div>
+                                </div>
+	                            </div>
+                                    
+                                  
+    													<!-- END EXAMPLE TABLE PORTLET-->
+													</div>
+												</div>
+														                        
+                                 </div>
+                               </div>
+
+
+            <!-- END CONTENT BODY -->
+        <!-- END CONTENT -->
+
+<!-- END CONTAINER -->
+
+<!-- /.modal -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner"> 2016 &copy; DigiSpace.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!--[if lt IE 9]>
+<script src="{% static 'assets/global/plugins/respond.min.js' %}"></script>
+<script src="{% static 'assets/global/plugins/excanvas.min.js' %}"></script>
+<![endif]-->
+<!-- BEGIN CORE PLUGINS -->
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"
+        type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-validation/js/jquery.validate.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-validation/js/additional-methods.min.js' %}"
+        type="text/javascript"></script>
+<!-- <script src="{% static 'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}" type="text/javascript"></script> -->
+<!-- <script src="{% static 'assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js' %}" type="text/javascript"></script> -->
+<script src="{% static 'assets/global/plugins/ckeditor/ckeditor.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-markdown/lib/markdown.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js' %}"
+        type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<!-- END THEME GLOBAL SCRIPTS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<!-- END THEME GLOBAL SCRIPTS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="{% static 'assets/pages/scripts/form-validation.min.js' %}" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="{% static 'assets/layouts/layout2/scripts/layout.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout2/scripts/demo.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="{% static 'assets/custom/js/jquery.ui.addresspicker.js' %}"></script>
+<script src="{% static 'assets/pages/scripts/form-wizard.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js' %}"
+        type="text/javascript"></script>
+
+<script src="{% static 'vendor/bootstrap-fileinput/jasny-bootstrap.js' %}"></script>
+
+<script src="http://kendo.cdn.telerik.com/2016.2.504/js/kendo.all.min.js"></script>
+
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<script src="{% static 'assets/pages/scripts/dropzone1.js' %}"></script>
+<script src="{% static 'assets/bootstrap-tagsinput.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/ion.rangeslider/js/ion.rangeSlider.min.js' %}"></script>
+ <script src="{% static 'assets/global/scripts/datatable.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}" type="text/javascript"></script>
+<!--         <script src="{% static 'assets/pages/scripts/table-datatables-editable.min.js' %}" type="text/javascript"></script>    -->
+		 <script src="{% static 'assets/pages/scripts/table-datatables-editable.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+ var oTable = $('#rate-card-list').dataTable({});
+ 
+ 
+});
+
+</script>
+
+
+</body>
+
+</html>
