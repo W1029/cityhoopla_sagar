@@ -82,6 +82,7 @@ def consumer_signup(request):
         ret = ''.join(random.choice('0123456789') for i in range(6))
         OTP = ret
         request.session["OTP"] = str(OTP)
+        print request.session["OTP"]
         sms_otp(consumer_obj,OTP)
         try:
             filename = "IMG_%s_%s.png" % (consumer_obj.username, str(datetime.now()).replace('.', '_'))
@@ -183,6 +184,7 @@ def resend_otp(request):
 @csrf_exempt
 def check_otp(request):
     json_obj = json.loads(request.body)
+    print request.session["OTP"]
     session_otp = request.session['OTP']
     user_id = json_obj['user_id']
     contact_no = json_obj['contact_no']
@@ -438,6 +440,273 @@ def get_bottom_advert_list(request):
         print ke
         data = {'success': 'false', 'message':'Something went wrong', 'advert_list': []}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def get_category_subcategory_list(request):
+    ##    pdb.set_trace()
+    json_obj = json.loads(request.body)
+    city_id = json_obj['city_id']
+    level = json_obj['level']
+    category_list = []
+    category_id_list = []
+    color = ''
+    try:
+        cat_objs = Category.objects.filter(category_status='1')
+        x = 0
+        for cat in cat_objs:
+            cat_city_obj = CategoryCityMap.objects.filter(category_id = str(cat.category_id))
+            if cat_city_obj:
+                for cat_city in cat_city_obj:
+                    if int(cat_city.city_place_id.city_place_id) == int(city_id):
+                        category_id_list.append(str(cat.category_id))
+            else:
+                category_id_list.append(str(cat.category_id))
+        print category_id_list
+        for cat_city in category_id_list:
+            category_id = str(cat_city)
+            cat_objs = Category.objects.filter(category_id=category_id, category_status='1')
+            for cat_obj in cat_objs:
+                cat_id = str(cat_obj.category_id)
+                advert_count,like_count,subcat_list = get_cat_data(cat_id, city_id)
+                cat_obj_data = {
+                    "category_id": cat_id,
+                    "category_name": cat_obj.category_name,
+                    "category_img": SERVER_URL+cat_obj.category_image.url,
+                    "total_adverts_count": advert_count,
+                    "total_likes": like_count,
+                    "favorite": "0",
+                    "category": subcat_list,
+                    "category_color": str(cat_obj.category_color) or '#000000'
+                }
+                category_list.append(cat_obj_data)
+
+        data = {'success': 'true', 'message':'', 'category_list': category_list,'level':level}
+    except Exception, ke:
+        print ke
+        data = {'success': 'false', 'message':'Something went wrong', 'category_list': [],'level':''}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_cat_data(cat_id,city_id):
+    advert_count = 0
+    like_count = 0
+    sub_cat_obj = CategoryLevel1.objects.filter(parent_category_id=cat_id, category_status='1')
+    subcat_list = []
+    for sub_cat in sub_cat_obj:
+        i = 0
+        advert_obj = Advert.objects.filter(category_level_1=str(sub_cat.category_id))
+        for adverts in advert_obj:
+            advert_id = adverts.advert_id
+            if adverts.city_place_id:
+                if int(adverts.city_place_id.city_place_id) == int(city_id):
+                    print "Match"
+                    try:
+                        pre_date = datetime.now().strftime("%m/%d/%Y")
+                        pre_date = datetime.strptime(pre_date, "%m/%d/%Y")
+                        advert_sub_obj = AdvertSubscriptionMap.objects.get(advert_id=advert_id)
+                        end_date = advert_sub_obj.business_id.end_date
+                        end_date = datetime.strptime(end_date, "%m/%d/%Y")
+                        date_gap = end_date - pre_date
+                        if int(date_gap.days) < 0:
+                            i = i + 1
+                    except Exception:
+                        print ""
+
+                    advert_like_obj = AdvertLike.objects.filter(advert_id=advert_id)
+                    for advert_like in advert_like_obj:
+                        like_count = like_count + 1
+
+                else:
+                    i = i + 1
+        cat_id = str(sub_cat.category_id)
+        subcat2_list  = get_cat2_data(cat_id, city_id)
+
+        sub_cat_data = {
+            "category_id": sub_cat.category_id,
+            "category_name": sub_cat.category_name,
+            "total_adverts_count": int(advert_obj.count()) - i,
+            "level": "1",
+            "category": subcat2_list,
+        }
+        advert_count = advert_count + int(advert_obj.count()) - i
+        subcat_list.append(sub_cat_data)
+    return advert_count, like_count, subcat_list
+
+def get_cat2_data(cat_id,city_id):
+    advert_count = 0
+    like_count = 0
+    sub_cat_obj = CategoryLevel2.objects.filter(parent_category_id=cat_id, category_status='1')
+    subcat_list = []
+    for sub_cat in sub_cat_obj:
+        i = 0
+        advert_obj = Advert.objects.filter(category_level_2=str(sub_cat.category_id))
+        for adverts in advert_obj:
+            advert_id = adverts.advert_id
+            if adverts.city_place_id:
+                if int(adverts.city_place_id.city_place_id) == int(city_id):
+                    print "Match"
+                    try:
+                        pre_date = datetime.now().strftime("%m/%d/%Y")
+                        pre_date = datetime.strptime(pre_date, "%m/%d/%Y")
+                        advert_sub_obj = AdvertSubscriptionMap.objects.get(advert_id=advert_id)
+                        end_date = advert_sub_obj.business_id.end_date
+                        end_date = datetime.strptime(end_date, "%m/%d/%Y")
+                        date_gap = end_date - pre_date
+                        if int(date_gap.days) < 0:
+                            i = i + 1
+                    except Exception:
+                        print ""
+
+                    # advert_like_obj = AdvertLike.objects.filter(advert_id=advert_id)
+                    # for advert_like in advert_like_obj:
+                    #     like_count = like_count + 1
+
+                else:
+                    i = i + 1
+        cat_id = str(sub_cat.category_id)
+        subcat3_list = get_cat3_data(cat_id, city_id)
+
+
+        sub_cat_data = {
+            "category_id": sub_cat.category_id,
+            "category_name": sub_cat.category_name,
+            "total_adverts_count": int(advert_obj.count()) - i,
+            "level": "2",
+            "category": subcat3_list
+        }
+        #advert_count = advert_count + int(advert_obj.count()) - i
+        subcat_list.append(sub_cat_data)
+    return subcat_list
+
+def get_cat3_data(cat_id,city_id):
+    advert_count = 0
+    like_count = 0
+    sub_cat_obj = CategoryLevel3.objects.filter(parent_category_id=cat_id, category_status='1')
+    subcat_list = []
+    for sub_cat in sub_cat_obj:
+        i = 0
+        advert_obj = Advert.objects.filter(category_level_3=str(sub_cat.category_id))
+        for adverts in advert_obj:
+            advert_id = adverts.advert_id
+            if adverts.city_place_id:
+                if int(adverts.city_place_id.city_place_id) == int(city_id):
+                    print "Match"
+                    try:
+                        pre_date = datetime.now().strftime("%m/%d/%Y")
+                        pre_date = datetime.strptime(pre_date, "%m/%d/%Y")
+                        advert_sub_obj = AdvertSubscriptionMap.objects.get(advert_id=advert_id)
+                        end_date = advert_sub_obj.business_id.end_date
+                        end_date = datetime.strptime(end_date, "%m/%d/%Y")
+                        date_gap = end_date - pre_date
+                        if int(date_gap.days) < 0:
+                            i = i + 1
+                    except Exception:
+                        print ""
+
+                    # advert_like_obj = AdvertLike.objects.filter(advert_id=advert_id)
+                    # for advert_like in advert_like_obj:
+                    #     like_count = like_count + 1
+
+                else:
+                    i = i + 1
+        cat_id = str(sub_cat.category_id)
+        subcat4_list = get_cat4_data(cat_id, city_id)
+
+        sub_cat_data = {
+            "category_id": sub_cat.category_id,
+            "category_name": sub_cat.category_name,
+            "total_adverts_count": int(advert_obj.count()) - i,
+            "level": "3",
+            "category": subcat4_list
+        }
+        #advert_count = advert_count + int(advert_obj.count()) - i
+        subcat_list.append(sub_cat_data)
+    return subcat_list
+
+def get_cat4_data(cat_id,city_id):
+    advert_count = 0
+    like_count = 0
+    sub_cat_obj = CategoryLevel4.objects.filter(parent_category_id=cat_id, category_status='1')
+    subcat_list = []
+    for sub_cat in sub_cat_obj:
+        i = 0
+        advert_obj = Advert.objects.filter(category_level_4=str(sub_cat.category_id))
+        for adverts in advert_obj:
+            advert_id = adverts.advert_id
+            if adverts.city_place_id:
+                if int(adverts.city_place_id.city_place_id) == int(city_id):
+                    print "Match"
+                    try:
+                        pre_date = datetime.now().strftime("%m/%d/%Y")
+                        pre_date = datetime.strptime(pre_date, "%m/%d/%Y")
+                        advert_sub_obj = AdvertSubscriptionMap.objects.get(advert_id=advert_id)
+                        end_date = advert_sub_obj.business_id.end_date
+                        end_date = datetime.strptime(end_date, "%m/%d/%Y")
+                        date_gap = end_date - pre_date
+                        if int(date_gap.days) < 0:
+                            i = i + 1
+                    except Exception:
+                        print ""
+
+                    # advert_like_obj = AdvertLike.objects.filter(advert_id=advert_id)
+                    # for advert_like in advert_like_obj:
+                    #     like_count = like_count + 1
+
+                else:
+                    i = i + 1
+        cat_id = str(sub_cat.category_id)
+        subcat5_list = get_cat5_data(cat_id, city_id)
+
+        sub_cat_data = {
+            "category_id": sub_cat.category_id,
+            "category_name": sub_cat.category_name,
+            "total_adverts_count": int(advert_obj.count()) - i,
+            "level": "4",
+            "category": subcat5_list
+        }
+        #advert_count = advert_count + int(advert_obj.count()) - i
+        subcat_list.append(sub_cat_data)
+    return subcat_list
+
+def get_cat5_data(cat_id,city_id):
+    advert_count = 0
+    like_count = 0
+    sub_cat_obj = CategoryLevel5.objects.filter(parent_category_id=cat_id, category_status='1')
+    subcat_list = []
+    for sub_cat in sub_cat_obj:
+        i = 0
+        advert_obj = Advert.objects.filter(category_level_5=str(sub_cat.category_id))
+        for adverts in advert_obj:
+            advert_id = adverts.advert_id
+            if adverts.city_place_id:
+                if int(adverts.city_place_id.city_place_id) == int(city_id):
+                    print "Match"
+                    try:
+                        pre_date = datetime.now().strftime("%m/%d/%Y")
+                        pre_date = datetime.strptime(pre_date, "%m/%d/%Y")
+                        advert_sub_obj = AdvertSubscriptionMap.objects.get(advert_id=advert_id)
+                        end_date = advert_sub_obj.business_id.end_date
+                        end_date = datetime.strptime(end_date, "%m/%d/%Y")
+                        date_gap = end_date - pre_date
+                        if int(date_gap.days) < 0:
+                            i = i + 1
+                    except Exception:
+                        print ""
+
+                    # advert_like_obj = AdvertLike.objects.filter(advert_id=advert_id)
+                    # for advert_like in advert_like_obj:
+                    #     like_count = like_count + 1
+
+                else:
+                    i = i + 1
+        sub_cat_data = {
+            "category_id": sub_cat.category_id,
+            "category_name": sub_cat.category_name,
+            "total_adverts_count": int(advert_obj.count()) - i,
+            "level": "5"
+        }
+        #advert_count = advert_count + int(advert_obj.count()) - i
+        subcat_list.append(sub_cat_data)
+    return subcat_list
 
 @csrf_exempt
 def get_category_list(request):
@@ -1473,3 +1742,103 @@ def save_sellticket(request):
         print "Exception",e
         data = {'success': 'false', 'message': 'Sell Ticket not Save'}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+# Sell Ticket List
+@csrf_exempt
+def view_list_sellticket(request):
+    try:
+        # pdb.set_trace()
+        sell_ticket_list = []
+        sell_ticket_obj=SellTicket.objects.filter()
+        if sell_ticket_obj:     
+            for ticket in sell_ticket_obj:
+                user_id=str(ticket.user_id)
+                consumer_object = ConsumerProfile.objects.get(consumer_id=user_id)
+                phone_no = consumer_object.consumer_contact_no
+                email    = consumer_object.consumer_email_id
+                if ticket.image_one:
+                    image_one=ticket.image_one.url
+                else:
+                    image_one=''
+
+                tkt_data = {
+                    "sellticket_id":str(ticket.sellticket_id),
+                    "event_name":ticket.event_name,
+                    "event_venue":ticket.event_venue,
+                    "start_date":ticket.start_date.strftime('%d/%m/%Y'),
+                    "start_time":ticket.start_time,
+                    "image_one":image_one,
+                    "phone_no":phone_no,
+                    "email":email
+                }
+                sell_ticket_list.append(tkt_data)
+            data = {"success":"true","sell_ticket_list":sell_ticket_list}
+        else:
+            tkt_data={
+                "":""
+            }
+            sell_ticket_list.append(tkt_data)
+            data = {"success":"false",'message': "Sell Ticket not Availabel"} 
+
+    except Exception, e:
+        print "Exception",e
+        data = {'success': 'false'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+# Sell Ticket Detail
+@csrf_exempt
+def view_sellticket_detail(request):
+    try:
+        # pdb.set_trace()
+        sell_ticket_detail= []
+        if request.method == 'POST':
+            json_obj = json.loads(request.body)
+            sellticket_id = json_obj['sellticket_id']
+            ticket_object = SellTicket.objects.filter(sellticket_id=sellticket_id)
+            user_id=str(ticket_object.user_id)
+            consumer_object = ConsumerProfile.objects.get(consumer_id=user_id)
+            phone_no = consumer_object.consumer_contact_no
+            email    = consumer_object.consumer_email_id
+
+            if ticket_object.image_one:
+                image_one=ticket_object.image_one.url
+            else:
+                image_one=''
+            if ticket_object.image_two:
+                image_two=ticket_object.image_two.url
+            else:
+                image_two=''
+            if ticket_object.image_three:
+                image_three=ticket_object.image_three.url
+            else:
+                image_three=''
+            if ticket_object.image_four:
+                image_four=ticket_object.image_four.url
+            else:
+                image_four=''
+
+            ticket_data = {
+                'image_one':image_one,
+                'image_two':image_two,
+                'image_three':image_three,
+                'image_four':image_four,
+                'event_name':ticket_object.event_name,
+                'event_venue':ticket_object.event_venue,
+                'start_date':ticket_object.start_date.strftime('%d/%m/%Y'),
+                'start_time':ticket_object.start_time,
+                'original_price':ticket_object.original_price,
+                'no_of_tickets':ticket_object.no_of_tickets,
+                'phone_no':phone_no,
+                'email':email,
+                'ticket_class':ticket_object.ticket_class,
+                'asking_price':ticket_object.asking_price
+            } 
+            sell_ticket_detail.append(ticket_data)
+
+        data ={"success":"true","sell_ticket_detail":sell_ticket_detail}
+
+    except Exception, e:
+        print "Exception",e
+        data = {'success': 'false'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
